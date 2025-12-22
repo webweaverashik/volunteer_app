@@ -1,0 +1,29 @@
+@font-face {
+      font-family: 'BalooDa2';
+      src: url('../fonts/BalooDa2.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+}
+
+body,
+* {
+      font-family: 'BalooDa2';
+}
+
+/* Repeat for other weights */
+#toastr-container>div {
+      opacity: 0.95 !important;
+}
+
+table.volunteer-table {
+      /* border: 1px dashed #F1F1F4 !important; */
+      border-collapse: collapse !important;
+}
+
+table.volunteer-table th,
+table.volunteer-table td {
+      /* border: 1px dashed #F1F1F4 !important; */
+      text-align: center !important;
+      vertical-align: middle !important;
+}

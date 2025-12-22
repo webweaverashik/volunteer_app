@@ -15,7 +15,7 @@
 
 <body class="bg-gray-50 min-h-screen">
     <!-- Navigation -->
-    @include('partials.navigation')
+    @include('layouts.partials.navigation')
 
     <!-- Main Content -->
     <main>
@@ -24,11 +24,11 @@
 
     <!-- FAQ Section -->
     @hasSection('show_faq')
-        @include('partials.faq')
+        @include('layouts.partials.faq')
     @endif
 
     <!-- Footer -->
-    @include('partials.footer')
+    @include('layouts.partials.footer')
 
     <!-- Scroll to Top Button -->
     <button id="scrollTopBtn" class="scroll-top-btn" aria-label="উপরে যান">

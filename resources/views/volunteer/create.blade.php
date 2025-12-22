@@ -66,10 +66,10 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="block text-gray-700 font-medium mb-2">ভোটার আইডি নম্বর</label>
+                                <label class="block text-gray-700 font-medium mb-2">এনআইডি নম্বর</label>
                                 <input type="text" name="nid" value="{{ old('nid') }}"
                                     class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('nid') border-red-500 @enderror"
-                                    placeholder="ভোটার আইডি নম্বর লিখুন">
+                                    placeholder="জাতীয় পরিচয়পত্র নম্বর লিখুন">
                                 @error('nid')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror

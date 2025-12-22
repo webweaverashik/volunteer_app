@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             VolunteerTeamSeeder::class,
             FAQSeeder::class,
             UserSeeder::class,
+            VolunteerSeeder::class
         ]);
     }
 }
