@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('admin.auth.app')
 
 
 @section('title', 'পাসওয়ার্ড রিসেট')
@@ -83,5 +83,5 @@
 
 
 @push('page-script')
-    <script src="{{ asset('js/auth/password/reset.js') }}"></script>
+    <script src="{{ asset('admin/js/auth/password/reset.js') }}"></script>
 @endpush

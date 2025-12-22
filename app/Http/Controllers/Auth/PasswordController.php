@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class PasswordController extends Controller
  */
     public function showLinkRequestForm()
     {
-        return view('auth.password.email');
+        return view('admin.auth.password.email');
     }
 
     /**
@@ -115,7 +115,7 @@ class PasswordController extends Controller
         }
 
         // Valid token → show reset form
-        return view('auth.password.reset', [
+        return view('admin.auth.password.reset', [
             'token' => $token,
             'email' => $email,
         ]);

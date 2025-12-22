@@ -10,7 +10,7 @@
         <!--begin::Heading-->
         <div class="text-center mb-11">
             <!--begin::Title-->
-            <h1 class="text-gray-900 fw-bolder mb-3">Please, sign in to admin panel</h1>
+            <h1 class="text-gray-900 fw-bolder mb-3">অনুগ্রহ করে সাইন ইন করুন</h1>
             <!--end::Title-->
             <!--begin::Subtitle-->
             <div class="text-gray-500 fw-semibold fs-6 d-none">Your Social Campaigns</div>
@@ -20,7 +20,7 @@
         <!--begin::Input group=-->
         <div class="fv-row mb-5">
             <!--begin::Email-->
-            <input type="text" placeholder="write your email" name="login" autocomplete="off"
+            <input type="text" placeholder="আপনার ইমেইল লিখুন" name="login" autocomplete="off"
                 class="form-control bg-transparent" required />
 
             <!--end::Email-->
@@ -28,7 +28,7 @@
         <!--end::Input group=-->
         <div class="fv-row mb-3">
             <!--begin::Password-->
-            <input type="password" placeholder="write your password" name="password" autocomplete="off"
+            <input type="password" placeholder="আপনার পাসওয়ার্ড লিখুন" name="password" autocomplete="off"
                 class="form-control bg-transparent" required />
             <!--end::Password-->
         </div>
@@ -37,7 +37,7 @@
         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
             <div></div>
             <!--begin::Link-->
-            <a href="{{ route('password.request') }}" class="link-primary">Forgot Password ?</a>
+            <a href="{{ route('password.request') }}" class="link-primary">পাসওয়ার্ড ভুলে গিয়েছেন ?</a>
             <!--end::Link-->
         </div>
         <!--end::Wrapper-->
@@ -45,10 +45,10 @@
         <div class="d-grid">
             <button type="submit" class="btn btn-primary" id="kt_sign_in_submit">
                 <!--begin::Indicator label-->
-                <span class="indicator-label">Sign In</span>
+                <span class="indicator-label">সাইন ইন</span>
                 <!--end::Indicator label-->
                 <!--begin::Indicator progress-->
-                <span class="indicator-progress">Please wait...
+                <span class="indicator-progress">অপেক্ষা করুন...
                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 <!--end::Indicator progress-->
             </button>

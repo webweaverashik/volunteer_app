@@ -5,8 +5,7 @@
     <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between "
         id="kt_app_header_container">
         <!--begin::Sidebar mobile toggle-->
-        <div
-            class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2">
+        <div class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2">
             <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
                 <i class="ki-outline ki-abstract-14 fs-2 fs-md-1"></i>
             </div>
@@ -580,15 +579,6 @@
                 </div> --}}
                 <!--end::Notifications-->
 
-                {{-- <!--begin::Clear Cache-->
-                <div class="app-navbar-item ms-1 ms-md-4">
-                    <a href="#" id="clear_cache_button" data-url="{{ route('clear.cache') }}"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear Cache"
-                        class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px"><i
-                            class="ki-outline ki-flash-circle fs-2"></i></a>
-                </div>
-                <!--end::Clear Cache--> --}}
-
                 <!--begin::Theme mode-->
                 <div class="app-navbar-item ms-2 ms-md-4">
                     <!--begin::Menu toggle-->
@@ -678,7 +668,7 @@
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route('profile') }}" class="menu-link px-5">
-                                My Profile
+                                আমার প্রোফাইল
                             </a>
                         </div>
                         <!--end::Menu item-->
@@ -691,7 +681,7 @@
                         <div class="menu-item px-5">
                             <a href="{{ route('logout') }}" class="menu-link px-5"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Sign Out
+                                সাইন আউট
                             </a>
                         </div>
                         <!--end::Menu item-->

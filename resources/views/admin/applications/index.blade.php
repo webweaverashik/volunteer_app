@@ -54,7 +54,7 @@
             <div class="card-toolbar w-100 w-xl-75 row g-3 align-items-end" data-all-applications-table-filter="form">
                 <div class="col-6 col-md-2 col-lg">
                     <select name="sylhet3_resident" class="form-select" data-kt-select2="true" data-placeholder="সিলেট-৩"
-                        data-allow-clear="true" data-hide-search="true">
+                        data-allow-clear="false" data-hide-search="true">
                         <option></option>
                         <option value="1">হ্যাঁ</option>
                         <option value="0">না</option>
@@ -63,7 +63,7 @@
 
                 <div class="col-6 col-md-3 col-lg">
                     <select name="upazila_id" class="form-select" data-kt-select2="true" data-placeholder="উপজেলা"
-                        data-allow-clear="true">
+                        data-allow-clear="false">
                         <option></option>
                         @foreach ($upazilas as $u)
                             <option value="{{ $u->id }}">{{ $u->name_bn }}</option>
@@ -73,7 +73,7 @@
 
                 <div class="col-6 col-md-3 col-lg">
                     <select name="occupation_id" class="form-select" data-kt-select2="true" data-placeholder="পেশা"
-                        data-allow-clear="true">
+                        data-allow-clear="false">
                         <option></option>
                         @foreach ($occupations as $o)
                             <option value="{{ $o->id }}">{{ $o->name_bn }}</option>
@@ -81,9 +81,9 @@
                     </select>
                 </div>
 
-                <div class="col-6 col-md-3 col-lg">
-                    <select name="team_id" class="form-select" data-kt-select2="true" data-placeholder="টিম"
-                        data-allow-clear="true">
+                <div class="col-6 col-md-3 col-lg-2">
+                    <select name="team_id" class="form-select" data-kt-select2="true" data-placeholder="যে কাজে আগ্রহী"
+                        data-allow-clear="false">
                         <option></option>
                         @foreach ($teams as $t)
                             <option value="{{ $t->id }}">{{ $t->name_bn }}</option>
@@ -93,7 +93,7 @@
 
                 <div class="col-6 col-md-3 col-lg">
                     <select name="weekly_hours" class="form-select" data-kt-select2="true" data-placeholder="সাপ্তাহিক সময়"
-                        data-allow-clear="true" data-hide-search="true">
+                        data-allow-clear="false" data-hide-search="true">
                         <option></option>
                         <option value="1-4">১-৪ ঘন্টা</option>
                         <option value="5-8">৫-৮ ঘন্টা</option>
@@ -104,7 +104,7 @@
 
                 <div class="col-6 col-md-3 col-lg">
                     <select name="preferred_time" class="form-select" data-kt-select2="true" data-placeholder="পছন্দের সময়"
-                        data-allow-clear="true" data-hide-search="true">
+                        data-allow-clear="false" data-hide-search="true">
                         <option></option>
                         <option value="morning">সকাল</option>
                         <option value="noon">দুপুর</option>
@@ -116,7 +116,7 @@
 
                 <div class="col-6 col-md-3 col-lg">
                     <select name="status" class="form-select" data-kt-select2="true" data-placeholder="স্ট্যাটাস"
-                        data-allow-clear="true" data-hide-search="true">
+                        data-allow-clear="false" data-hide-search="true">
                         <option></option>
                         <option value="pending">পেন্ডিং</option>
                         <option value="approved">গৃহীত</option>
@@ -171,7 +171,7 @@
                         <th>মন্তব্য</th>
                         <th>স্ট্যাটাস</th>
                         <th>দাখিলের সময়</th>
-                        <th class="w-100px">##</th>
+                        <th class="w-100px">একশন</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-800 fw-semibold">

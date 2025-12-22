@@ -3,7 +3,7 @@
 @push('page-css')
 @endpush
 
-@section('title', 'Dashboard')
+@section('title', 'ড্যাশবোর্ড')
 
 @section('header-title')
     <div data-kt-swapper="true" data-kt-swapper-mode="{default: 'prepend', lg: 'prepend'}"

@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('admin.auth.app')
 
 
 @section('title', 'রিসেট লিংক')
@@ -46,5 +46,5 @@
 
 
 @push('page-script')
-    <script src="{{ asset('js/auth/password/email.js') }}"></script>
+    <script src="{{ asset('admin/js/auth/password/email.js') }}"></script>
 @endpush

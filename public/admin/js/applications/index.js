@@ -18,7 +18,7 @@ var ApplicationsTable = (function () {
                   pageLength: 10,
 
                   // Default sort by created_at (latest first)
-                  order: [[17, 'desc']],
+                  order: [],
 
                   ajax: {
                         url: table.dataset.ajaxUrl,
@@ -53,11 +53,23 @@ var ApplicationsTable = (function () {
                         { data: 'preferred_time', searchable: false },
                         { data: 'comments', searchable: false, orderable: false },
                         { data: 'status', searchable: false, orderable: false },
-                        { data: 'created_at', searchable: false },
+                        { data: 'created_at', searchable: false, orderable: false },
                         { data: 'action', searchable: false, orderable: false }
-                  ]
+                  ],
+                  
+                  drawCallback: function () {
+                        initTooltips();
+                  }
             });
       };
+
+      function initTooltips() {
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+                  if (!el._tooltip) {
+                        el._tooltip = new bootstrap.Tooltip(el);
+                  }
+            });
+      }
 
       /* -------------------------------------------
        * Global Search
@@ -154,8 +166,8 @@ var ApplicationsTable = (function () {
                               : 'এই আবেদনটি বাতিল হবে',
                         icon: status === 'approved' ? 'question' : 'warning',
                         showCancelButton: true,
-                        confirmButtonText: 'হ্যাঁ',
-                        cancelButtonText: 'না',
+                        confirmButtonText: 'হ্যাঁ, চাই',
+                        cancelButtonText: 'না, বাতিল করুন',
                         confirmButtonColor: status === 'approved' ? '#28a745' : '#dc3545'
                   }).then((result) => {
                         if (!result.isConfirmed) return;

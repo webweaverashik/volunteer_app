@@ -31,6 +31,7 @@ class ApplicationController extends Controller
     {
         $query = Volunteer::query()
             ->with(['upazila', 'occupation', 'teams'])
+            ->latest()
             ->select('volunteers.*');
 
         /* ---------------- FILTERS ---------------- */

@@ -3,13 +3,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta name="description"
-        content="পুলিশ রিপোর্ট ম্যানেজমেন্ট সিস্টেম (PRMS) একটি ওয়েবভিত্তিক রিপোর্টিং অ্যাপ, যা রাজনৈতিক কর্মসূচি ও জনসমাগম সংক্রান্ত তথ্য ডিজিটালি এন্ট্রি, ম্যানেজ ও মনিটর করতে সহায়তা করে। Role-based access, zone-wise data filtering এবং structured reporting এর মাধ্যমে এটি দ্রুত, নির্ভুল ও নিরাপদ তথ্য ব্যবস্থাপনা নিশ্চিত করে।" />
+        content="এই প্ল্যাটফর্মটি সিলেট-৩ আসনে ব্যারিস্টার নুরুল হুদা জুনেদ–এর সাথে স্বেচ্ছাসেবকদের সংগঠিত, সমন্বয় ও কার্যক্রম পরিচালনার জন্য তৈরি করা হয়েছে। এটি শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য। একসাথে, আমরা সিলেট-৩ এর জন্য একটি সুন্দর ভবিষ্যৎ গড়ে তুলতে চাই।" />
     <meta name="keywords"
-        content="Police Report Management System, PRMS, police reporting software, political program reporting, law enforcement reporting system, zone wise reporting, role based access control, police dashboard, political meeting report, election program monitoring, government reporting system, Bangladesh police software" />
+        content="Volunteer Management System, Sylhet-3 Volunteer Platform, Barrister Nurul Huda Juned, volunteer registration system, political volunteer management, election campaign volunteers, volunteer coordination platform, campaign management system, grassroots volunteer network, Bangladesh election volunteers, civic engagement platform" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Police Report Management System (PRMS) | Zone-wise Political Program Reporting">
+    <meta property="og:title" content="Volunteer Management Platform | Barrister Nurul Huda Juned | Sylhet-3">
     <meta property="og:url" content="https://ashikur-rahman.com" />
     <meta property="og:site_name" content="PRMS by Ashikur Rahman" />
     <link rel="canonical" href="https://ashikur-rahman.com" />

@@ -50,7 +50,7 @@
                             <span class="menu-icon">
                                 <i class="ki-outline ki-chart-pie-4 fs-2"></i>
                             </span>
-                            <span class="menu-title fs-4">Dashboard</span>
+                            <span class="menu-title fs-4">ড্যাশবোর্ড</span>
                         </a>
                         <!--end:Dashboard Menu link-->
                     </div>
@@ -64,7 +64,7 @@
                                 <i class="ki-outline ki-notepad-bookmark fs-2"></i>
                             </span>
                             <span class="menu-title fs-4">
-                                All Applications
+                                সকল আবেদন
                             </span>
                         </a>
                         <!--end:Menu link-->
@@ -78,7 +78,7 @@
                             <span class="menu-icon">
                                 <i class="ki-outline ki-user-edit fs-1"></i>
                             </span>
-                            <span class="menu-title fs-4">User Management</span>
+                            <span class="menu-title fs-4">ইউজার ব্যবস্থাপনা</span>
                             <span class="menu-arrow"></span>
                         </span>
                         <!--end:Menu link-->
@@ -89,7 +89,7 @@
                             <div class="menu-item">
                                 <!--begin:Menu link--><a class="menu-link" id="user_list_link"
                                     href="{{ route('users.index') }}"><span class="menu-bullet"><span
-                                            class="bullet bullet-dot"></span></span><span class="menu-title fs-4">All Users</span></a>
+                                            class="bullet bullet-dot"></span></span><span class="menu-title fs-4">সকল ইউজার</span></a>
                                 <!--end:Menu link-->
                             </div>
                             <!--end:Menu item-->
@@ -98,7 +98,7 @@
                             <div class="menu-item">
                                 <a class="menu-link" id="profile_link"
                                     href="{{ route('profile') }}"><span class="menu-bullet"><span
-                                            class="bullet bullet-dot"></span></span><span class="menu-title fs-4">My Profile</span></a>
+                                            class="bullet bullet-dot"></span></span><span class="menu-title fs-4">আমার প্রোফাইল</span></a>
                             </div>
                             <!--end:Menu item-->
                         </div>
@@ -117,7 +117,7 @@
                     class="btn btn-flex flex-center btn-custom btn-danger overflow-hidden text-nowrap px-0 h-40px w-100"
                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="Click to sign out">
                     <span class="btn-label fs-4">
-                        Sign Out
+                        সাইন আউট
                     </span>
                     <i class="ki-outline ki-document btn-icon fs-2 m-0"></i>
                 </a>

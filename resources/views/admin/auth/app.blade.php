@@ -37,16 +37,13 @@
                     </a>
                     <!--end::Image-->
                     <!--begin::Title-->
-                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Barrister Nurul Huda Juned
+                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">ব্যারিস্টার নুরুল হুদা জুনেদ
                     </h1>
                     <!--end::Title-->
                     <!--begin::Text-->
                     <div class="text-gray-600 fs-4 text-center fw-semibold w-lg-600px d-none d-md-block">
-                        Volunteer App is a dedicated platform for collecting and organizing volunteers in support of
-                        Barrister Nurul Huda Juned, a parliamentary election candidate from Sylhet-3. The app allows
-                        supporters to register easily by submitting their basic information, helping the campaign team
-                        coordinate volunteer activities efficiently. It is designed to be simple, secure, and accessible
-                        for grassroots participation.
+                        এই প্ল্যাটফর্মটি সিলেট-৩ আসনে ব্যারিস্টার নুরুল হুদা জুনেদ–এর সাথে স্বেচ্ছাসেবকদের সংগঠিত ও
+                        কার্যক্রম সমন্বয়ের জন্য তৈরি করা হয়েছে। এটি শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য। একসাথে, আমরা সিলেট-৩ এর জন্য একটি সুন্দর ভবিষ্যৎ গড়ে তুলতে চাই।
                     </div>
                     <!--end::Text-->
                 </div>
