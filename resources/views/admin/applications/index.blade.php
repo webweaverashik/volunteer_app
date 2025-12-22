@@ -4,7 +4,7 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
-@section('title', 'All Applications')
+@section('title', 'সকল আবেদন সমূহ')
 
 @section('header-title')
     <div data-kt-swapper="true" data-kt-swapper-mode="{default: 'prepend', lg: 'prepend'}"
@@ -12,7 +12,7 @@
         class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
         <!--begin::Title-->
         <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 align-items-center my-0">
-            All Applications
+            সকল আবেদন
         </h1>
         <!--end::Title-->
         <!--begin::Separator-->
@@ -23,7 +23,7 @@
             <!--begin::Item-->
             <li class="breadcrumb-item text-muted">
                 <a href="#" class="text-muted text-hover-primary">
-                    Volunteer </a>
+                    স্বেচ্ছাসেবক </a>
             </li>
             <!--end::Item-->
             <!--begin::Item-->
@@ -33,7 +33,7 @@
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item text-muted">
-                Form Submission </li>
+                দাখিলকৃত আবেদন </li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -41,214 +41,144 @@
 @endsection
 
 @section('content')
-    <!--begin::Card-->
     <div class="card">
-        <!--begin::Card header-->
-        <div class="card-header border-0 pt-6">
-            <!--begin::Card title-->
+        <div class="card-header d-flex justify-content-between gap-3">
             <div class="card-title">
-                <!--begin::Search-->
                 <div class="d-flex align-items-center position-relative my-1">
                     <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i> <input type="text"
-                        data-all-reports-table-filter="search"
-                        class="form-control form-control-solid w-250px w-lg-450px ps-12"
-                        placeholder="আবেদনগুলোর মধ্যে খুঁজুন">
+                        data-all-applications-table-filter="search" class="form-control w-300px ps-12"
+                        placeholder="আবেদকারির তথ্য খুঁজুন">
                 </div>
-                <!--end::Search-->
-
-                <!--begin::Export hidden buttons-->
-                <div id="kt_hidden_export_buttons" class="d-none"></div>
-                <!--end::Export buttons-->
-
             </div>
-            <!--begin::Card title-->
 
-            <!--begin::Card toolbar-->
-            <div class="card-toolbar">
-                <!--begin::Toolbar-->
-                <div class="d-flex justify-content-end" data-all-reports-table-toolbar="base">
-                    <!--begin::Filter-->
-                    <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end">
-                        <i class="ki-outline ki-filter fs-2"></i>ফিল্টার</button>
-                    <!--begin::Menu 1-->
-                    <div class="menu menu-sub menu-sub-dropdown w-300px w-md-450px" data-kt-menu="true">
-                        <!--begin::Header-->
-                        <div class="px-7 py-5">
-                            <div class="fs-5 text-gray-900 fw-bold">ফিল্টার অপশন</div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Separator-->
-                        <div class="separator border-gray-200"></div>
-                        <!--end::Separator-->
-                        <!--begin::Content-->
-                        <div class="px-7 py-5" data-all-reports-table-filter="form">
-                            <div class="row">
-                                <div class="col-6 mb-5">
-                                    <label class="form-label fs-6 fw-semibold">উপজেলা:</label>
-                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                        data-placeholder="সিলেক্ট করুন" data-allow-clear="true"
-                                        data-all-reports-table-filter="status" data-hide-search="true">
-                                        <option></option>
-                                        {{-- @foreach ($upazilas as $upazila)
-                                            <option value="{{ $upazila->id }}_{{ $upazila->name }}">{{ $upazila->name }}
-                                            </option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
-
-                                <div class="col-6 mb-5">
-                                    <label class="form-label fs-6 fw-semibold">প্রোগ্রামের ধরণ:</label>
-                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                        data-placeholder="সিলেক্ট করুন" data-allow-clear="true"
-                                        data-all-reports-table-filter="status" data-hide-search="false">
-                                        <option></option>
-                                        {{-- @foreach ($programTypes as $type)
-                                            <option value="{{ $type->id }}_{{ $type->name }}">{{ $type->name }}
-                                            </option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!--begin::Actions-->
-                            <div class="d-flex justify-content-end mt-5">
-                                <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                    data-kt-menu-dismiss="true" data-all-reports-table-filter="reset">রিসেট</button>
-                                <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true"
-                                    data-all-reports-table-filter="filter">এপ্লাই</button>
-                            </div>
-                            <!--end::Actions-->
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Menu 1-->
-
-                    <!--begin::Export dropdown-->
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end">
-                            <i class="ki-outline ki-exit-up fs-2"></i>এক্সপোর্ট
-                        </button>
-
-                        <!--begin::Menu-->
-                        <div id="kt_table_report_dropdown_menu"
-                            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4"
-                            data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-row-export="copy">ক্লিপবোর্ডে কপি করুন</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-row-export="excel">Excel ফাইল ডাউনলোড</a>
-                            </div>
-                            {{-- <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-row-export="csv">CSV ফাইল ডাউনলোড</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-row-export="pdf">PDF ফাইল ডাউনলোড</a>
-                            </div> --}}
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu-->
-                    </div>
-                    <!--end::Export dropdown-->
-
-                    <!--end::Filter-->
+            <div class="card-toolbar w-100 w-xl-75 row g-3 align-items-end" data-all-applications-table-filter="form">
+                <div class="col-6 col-md-2 col-lg">
+                    <select name="sylhet3_resident" class="form-select" data-kt-select2="true" data-placeholder="সিলেট-৩"
+                        data-allow-clear="true" data-hide-search="true">
+                        <option></option>
+                        <option value="1">হ্যাঁ</option>
+                        <option value="0">না</option>
+                    </select>
                 </div>
-                <!--end::Toolbar-->
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="upazila_id" class="form-select" data-kt-select2="true" data-placeholder="উপজেলা"
+                        data-allow-clear="true">
+                        <option></option>
+                        @foreach ($upazilas as $u)
+                            <option value="{{ $u->id }}">{{ $u->name_bn }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="occupation_id" class="form-select" data-kt-select2="true" data-placeholder="পেশা"
+                        data-allow-clear="true">
+                        <option></option>
+                        @foreach ($occupations as $o)
+                            <option value="{{ $o->id }}">{{ $o->name_bn }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="team_id" class="form-select" data-kt-select2="true" data-placeholder="টিম"
+                        data-allow-clear="true">
+                        <option></option>
+                        @foreach ($teams as $t)
+                            <option value="{{ $t->id }}">{{ $t->name_bn }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="weekly_hours" class="form-select" data-kt-select2="true" data-placeholder="সাপ্তাহিক সময়"
+                        data-allow-clear="true" data-hide-search="true">
+                        <option></option>
+                        <option value="1-4">১-৪ ঘন্টা</option>
+                        <option value="5-8">৫-৮ ঘন্টা</option>
+                        <option value="9-12">৯-১২ ঘন্টা</option>
+                        <option value="12+">১২ ঘন্টা +</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="preferred_time" class="form-select" data-kt-select2="true" data-placeholder="পছন্দের সময়"
+                        data-allow-clear="true" data-hide-search="true">
+                        <option></option>
+                        <option value="morning">সকাল</option>
+                        <option value="noon">দুপুর</option>
+                        <option value="afternoon">বিকাল</option>
+                        <option value="evening">সন্ধ্যা</option>
+                        <option value="anytime">যেকোনো সময়</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg">
+                    <select name="status" class="form-select" data-kt-select2="true" data-placeholder="স্ট্যাটাস"
+                        data-allow-clear="true" data-hide-search="true">
+                        <option></option>
+                        <option value="pending">পেন্ডিং</option>
+                        <option value="approved">গৃহীত</option>
+                        <option value="rejected">বাদ</option>
+                    </select>
+                </div>
+
+                {{-- Action Buttons --}}
+                <div class="col-6 col-lg">
+                    <button class="btn btn-primary w-100" data-all-applications-table-filter="filter">
+                        ফিল্টার
+                    </button>
+                </div>
+
+                <div class="col-6 col-lg">
+                    <button class="btn btn-light w-100" data-all-applications-table-filter="reset">
+                        রিসেট
+                    </button>
+                </div>
+
+                <div class="col-6 col-lg">
+                    <button class="btn btn-success w-100" data-row-export="excel" data-bs-toggle="tooltip"
+                        title="Download Excel">
+                        <i class="bi bi-file-earmark-excel fs-3"></i>
+                        Excel
+                    </button>
+                </div>
             </div>
-            <!--end::Card toolbar-->
         </div>
-        <!--end::Card header-->
 
-        <!--begin::Card body-->
-        <div class="card-body py-4">
-            <!--begin::Table-->
-            <table class="table table-hover align-middle table-row-dashed fs-6 gy-5 volunteer-table"
-                id="kt_all_reports_table">
+        <div class="card-body">
+            <table id="kt_all_applications_table"
+                class="table table-hover table-row-dashed align-middle fs-6 gy-5 volunteer-table"
+                data-ajax-url="{{ route('applications.data') }}">
                 <thead>
                     <tr class="fw-bold fs-6 gs-0">
                         <th>#</th>
-                        <th>পূর্ণ নাম</th>
-                        <th>মোবাইল নং</th>
-                        <th>এনআইডি নং</th>
-                        <th>সিলেট-৩ আসনের অধিবাসী</th>
+                        <th>নাম</th>
+                        <th>মোবাইল</th>
+                        <th>NID</th>
+                        <th>সিলেট-৩</th>
                         <th>উপজেলা</th>
                         <th>ইউনিয়ন</th>
                         <th>ঠিকানা</th>
-                        <th>ভোটকেন্দ্র</th>
+                        <th>ভোট কেন্দ্র</th>
                         <th>বয়স</th>
                         <th>পেশা</th>
-                        <th>আগ্রহী কাজ</th>
+                        <th>কাজ</th>
                         <th>রেফারেন্স</th>
-                        <th>সময় দিবে</th>
-                        <th>কখন দিবে</th>
+                        <th>সাপ্তাহিক সময়</th>
+                        <th>পছন্দের সময়</th>
                         <th>মন্তব্য</th>
-                        <th>অবস্থা</th>
-                        <th class="not-export w-100px">##</th>
+                        <th>স্ট্যাটাস</th>
+                        <th>দাখিলের সময়</th>
+                        <th class="w-100px">##</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-800 fw-semibold">
-                    @php
-                        use Rakibhstu\Banglanumber\NumberToBangla;
-                        $numto = new NumberToBangla();
-                    @endphp
-
-                    @foreach ($applications as $application)
-                        <tr>
-                            <td>{{ $numto->bnNum($loop->iteration) }}</td>
-                            <td>{{ $application->full_name }}</td>
-                            <td>{{ $application->mobile }}</td>
-                            <td>{{ $application->nid }}</td>
-                            <td>{{ $application->sylhet3_resident }}</td>
-                            <td>{{ $application->upazila_id }}</td>
-                            <td>{{ $application->union_name }}</td>
-                            <td>{{ $application->current_address }}</td>
-                            <td>{{ $application->voting_center }}</td>
-                            <td>{{ $application->age }}</td>
-                            <td>{{ $application->occupation_id }}</td>
-                            <td>{{ $application->reference }}</td>
-                            <td>{{ $application->weekly_hours }}</td>
-                            <td>{{ $application->preferred_time }}</td>
-                            <td>{{ $application->comments }}</td>
-                            <td>{{ $application->other_team_description }}</td>
-                            <td>
-                                @php
-                                    $statusMap = [
-                                        'approved' => ['label' => 'গৃহীত', 'class' => 'badge-success'],
-                                        'rejected' => ['label' => 'বাদ', 'class' => 'badge-danger'],
-                                        'pending' => ['label' => 'পেন্ডিং', 'class' => 'badge-warning'],
-                                    ];
-                                    $status = $statusMap[$application->status];
-                                @endphp
-                                <span class="badge {{ $status['class'] }}">{{ $status['label'] }}</span>
-                            </td>
-
-                            {{-- Actions --}}
-                            <td>
-                                @if ($application->status == 'pending')
-                                    <a href="#" class="btn btn-icon btn-sm btn-circle btn-text-success"
-                                        data-bs-toggle="tooltip" title="এপ্রুভ"><i class="bi bi-check2-square fs-3"></i></a>
-
-                                    <a href="#" class="btn btn-icon btn-sm btn-circle btn-text-danger"
-                                        data-bs-toggle="tooltip" title="রিজেক্ট">
-                                        <i class="bi bi-x-circle fs-3"></i>
-                                    </a>
-                                @else
-                                    -
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
                 </tbody>
-
             </table>
-            <!--end::Table-->
         </div>
-        <!--end::Card body-->
     </div>
-    <!--end::Card-->
 @endsection
 
 
@@ -257,6 +187,12 @@
 @endpush
 
 @push('page-js')
+    <script>
+        window.APPLICATION_STATUS_URL = "{{ route('applications.updateStatus', ':id') }}";
+        window.APPLICATION_EXPORT_URL = "{{ route('applications.export.excel') }}";
+        window.CSRF_TOKEN = "{{ csrf_token() }}";
+    </script>
+
     <script src="{{ asset('admin/js/applications/index.js') }}"></script>
 
     <script>

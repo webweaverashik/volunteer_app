@@ -1,231 +1,211 @@
 "use strict";
 
-var AllReportsList = function () {
-      // Define shared variables
-      var table;
-      var datatable;
+var ApplicationsTable = (function () {
+      let table;
+      let datatable;
 
-      // Private functions
-      var initDatatable = function () {
-            // Init datatable --- more info on datatables: https://datatables.net/manual/
+      /* -------------------------------------------
+       * Init DataTable
+       * ----------------------------------------- */
+      const initDatatable = function () {
+            table = document.getElementById('kt_all_applications_table');
+            if (!table) return;
+
             datatable = $(table).DataTable({
-                  "info": true,
-                  'order': [],
-                  "lengthMenu": [10, 25, 50, 100],
-                  "pageLength": 10,
-                  "lengthChange": true,
-                  "autoWidth": false, // Disable auto width
-                  'columnDefs': [
-                        // { orderable: false, targets: 23 }, // Disable ordering on column Actions
+                  processing: true,
+                  serverSide: true,
+                  searching: true,
+                  pageLength: 10,
+
+                  // Default sort by created_at (latest first)
+                  order: [[17, 'desc']],
+
+                  ajax: {
+                        url: table.dataset.ajaxUrl,
+                        data: function (d) {
+                              const form = document.querySelector('[data-all-applications-table-filter="form"]');
+
+                              d.sylhet3_resident = form.querySelector('[name="sylhet3_resident"]').value;
+                              d.upazila_id = form.querySelector('[name="upazila_id"]').value;
+                              d.occupation_id = form.querySelector('[name="occupation_id"]').value;
+                              d.team_id = form.querySelector('[name="team_id"]').value;
+                              d.weekly_hours = form.querySelector('[name="weekly_hours"]').value;
+                              d.preferred_time = form.querySelector('[name="preferred_time"]').value;
+                              d.status = form.querySelector('[name="status"]').value;
+                        }
+                  },
+
+                  columns: [
+                        { data: 'DT_RowIndex', searchable: false, orderable: false },
+                        { data: 'full_name' },
+                        { data: 'mobile' },
+                        { data: 'nid' },
+                        { data: 'sylhet3_resident', searchable: false },
+                        { data: 'upazila', searchable: false },
+                        { data: 'union_name' },
+                        { data: 'current_address', searchable: false },
+                        { data: 'voting_center' },
+                        { data: 'age', searchable: false },
+                        { data: 'occupation', searchable: false },
+                        { data: 'teams', searchable: false, orderable: false },
+                        { data: 'reference' },
+                        { data: 'weekly_hours', searchable: false },
+                        { data: 'preferred_time', searchable: false },
+                        { data: 'comments', searchable: false, orderable: false },
+                        { data: 'status', searchable: false, orderable: false },
+                        { data: 'created_at', searchable: false },
+                        { data: 'action', searchable: false, orderable: false }
                   ]
             });
+      };
 
-            // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
-            datatable.on('draw', function () {
+      /* -------------------------------------------
+       * Global Search
+       * ----------------------------------------- */
+      const handleSearch = function () {
+            let timer;
+            const searchInput = document.querySelector('[data-all-applications-table-filter="search"]');
 
+            if (!searchInput) return;
+
+            searchInput.addEventListener('keyup', function () {
+                  clearTimeout(timer);
+                  timer = setTimeout(() => {
+                        datatable.search(this.value).draw();
+                  }, 300);
             });
-      }
+      };
 
-      // Hook export buttons
-      var exportButtons = () => {
-            const documentTitle = 'সকল দাখিলকৃত প্রতিবেদন';
+      /* -------------------------------------------
+       * Filters + Reset
+       * ----------------------------------------- */
+      const handleFilters = function () {
+            const form = document.querySelector('[data-all-applications-table-filter="form"]');
+            if (!form) return;
 
-            var buttons = new $.fn.dataTable.Buttons(datatable, {
-                  buttons: [
-                        {
-                              extend: 'copyHtml5',
-                              className: 'buttons-copy',
-                              title: documentTitle,
-                              exportOptions: {
-                                    columns: ':visible:not(.not-export)'
-                              }
-                        },
-                        {
-                              extend: 'excelHtml5',
-                              className: 'buttons-excel',
-                              title: documentTitle,
-                              exportOptions: {
-                                    columns: ':visible:not(.not-export)'
-                              }
-                        },
-                        {
-                              extend: 'csvHtml5',
-                              className: 'buttons-csv',
-                              title: documentTitle, exportOptions: {
-                                    columns: ':visible:not(.not-export)'
-                              }
-                        },
-                        {
-                              extend: 'pdfHtml5',
-                              className: 'buttons-pdf',
-                              title: documentTitle,
-                              exportOptions: {
-                                    columns: ':visible:not(.not-export)',
-                                    modifier: {
-                                          page: 'all',
-                                          search: 'applied'
-                                    }
-                              },
-                              customize: function (doc) {
-                                    // Set page margins [left, top, right, bottom]
-                                    doc.pageMargins = [20, 20, 20, 40]; // reduce from default 40
+            form.querySelector('[data-all-applications-table-filter="filter"]')
+                  .addEventListener('click', function () {
+                        datatable.ajax.reload();
+                  });
 
-                                    // Optional: Set font size globally
-                                    doc.defaultStyle.fontSize = 10;
+            form.querySelector('[data-all-applications-table-filter="reset"]')
+                  .addEventListener('click', function () {
+                        form.querySelectorAll('select').forEach(el => {
+                              $(el).val(null).trigger('change');
+                        });
 
-                                    // Optional: Set header or footer
-                                    doc.footer = getPdfFooterWithPrintTime(); // your custom footer function
-                              }
-                        }
+                        datatable.search('').draw();
+                  });
+      };
 
-                  ]
-            }).container().appendTo('#kt_hidden_export_buttons'); // or a hidden container
-
-            // Hook dropdown export actions
-            const exportItems = document.querySelectorAll('#kt_table_report_dropdown_menu [data-row-export]');
-            exportItems.forEach(exportItem => {
-                  exportItem.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const exportValue = this.getAttribute('data-row-export');
-                        const target = document.querySelector('.buttons-' + exportValue);
-                        if (target) {
-                              target.click();
-                        } else {
-                              console.warn('Export button not found:', exportValue);
-                        }
+      /* -------------------------------------------
+       * Select2 Init (Metronic Style)
+       * ----------------------------------------- */
+      const initSelect2 = function () {
+            $('[data-kt-select2="true"]').each(function () {
+                  $(this).select2({
+                        placeholder: $(this).data('placeholder'),
+                        allowClear: true,
+                        minimumResultsForSearch: $(this).data('hide-search') ? Infinity : 0,
+                        width: '100%'
                   });
             });
       };
 
+      /* -------------------------------------------
+       * Excel Export
+       * ----------------------------------------- */
+      const handleExport = function () {
+            const btn = document.querySelector('[data-row-export="excel"]');
+            if (!btn) return;
 
-      // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-      var handleSearch = function () {
-            const filterSearch = document.querySelector('[data-all-reports-table-filter="search"]');
-            filterSearch.addEventListener('keyup', function (e) {
-                  datatable.search(e.target.value).draw();
-            });
-      }
+            btn.addEventListener('click', function () {
+                  const form = document.querySelector('[data-all-applications-table-filter="form"]');
 
-      // Filter Datatable
-      var handleFilter = function () {
-            // Select filter options
-            const filterForm = document.querySelector('[data-all-reports-table-filter="form"]');
-            const filterButton = filterForm.querySelector('[data-all-reports-table-filter="filter"]');
-            const resetButton = filterForm.querySelector('[data-all-reports-table-filter="reset"]');
-            const selectOptions = filterForm.querySelectorAll('select');
-
-            // Filter datatable on submit
-            filterButton.addEventListener('click', function () {
-                  var filterString = '';
-
-                  // Get filter values
-                  selectOptions.forEach((item, index) => {
-                        if (item.value && item.value !== '') {
-                              if (index !== 0) {
-                                    filterString += ' ';
-                              }
-
-                              // Build filter value options
-                              filterString += item.value;
-                        }
+                  const params = new URLSearchParams({
+                        sylhet3_resident: form.querySelector('[name="sylhet3_resident"]').value,
+                        upazila_id: form.querySelector('[name="upazila_id"]').value,
+                        occupation_id: form.querySelector('[name="occupation_id"]').value,
+                        team_id: form.querySelector('[name="team_id"]').value,
+                        weekly_hours: form.querySelector('[name="weekly_hours"]').value,
+                        preferred_time: form.querySelector('[name="preferred_time"]').value,
+                        status: form.querySelector('[name="status"]').value,
+                        search: datatable.search()
                   });
 
-                  // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-                  datatable.search(filterString).draw();
+                  window.location.href =
+                        window.APPLICATION_EXPORT_URL + '?' + params.toString();
             });
+      };
 
-            // Reset datatable
-            resetButton.addEventListener('click', function () {
-                  // Reset filter form
-                  selectOptions.forEach((item, index) => {
-                        // Reset Select2 dropdown --- official docs reference: https://select2.org/programmatic-control/add-select-clear-items
-                        $(item).val(null).trigger('change');
-                  });
+      /* -------------------------------------------
+       * Approve / Reject (SweetAlert + AJAX)
+       * ----------------------------------------- */
+      const handleActions = function () {
 
-                  // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-                  datatable.search('').draw();
-            });
-      }
-
-
-      // Delete Report
-      const handleDeletion = function () {
-            document.addEventListener('click', function (e) {
-                  const deleteBtn = e.target.closest('.delete-report');
-                  if (!deleteBtn) return;
-
-                  e.preventDefault();
-
-                  let reportId = deleteBtn.getAttribute('data-report-id');
-                  console.log('Report ID:', reportId);
-
-                  let url = reportDeleteRoute.replace(':id', reportId);
+            $(document).on('click', '.js-approve, .js-reject', function () {
+                  const id = this.dataset.id;
+                  const status = this.classList.contains('js-approve') ? 'approved' : 'rejected';
 
                   Swal.fire({
                         title: 'আপনি কি নিশ্চিত?',
-                        text: 'এই প্রতিবেদনটি মুছে ফেলা হবে।',
-                        icon: 'warning',
+                        text: status === 'approved'
+                              ? 'এই আবেদনটি গৃহীত হবে'
+                              : 'এই আবেদনটি বাতিল হবে',
+                        icon: status === 'approved' ? 'question' : 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'মুছে ফেলুন',
-                        cancelButtonText: 'বাতিল',
+                        confirmButtonText: 'হ্যাঁ',
+                        cancelButtonText: 'না',
+                        confirmButtonColor: status === 'approved' ? '#28a745' : '#dc3545'
                   }).then((result) => {
-                        if (result.isConfirmed) {
-                              fetch(url, {
-                                    method: "DELETE",
-                                    headers: {
-                                          "Content-Type": "application/json",
-                                          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                                    },
-                              })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                          if (data.success) {
-                                                Swal.fire({
-                                                      title: 'ধন্যবাদ!',
-                                                      text: 'প্রতিবেদনটি সফলভাবে মুছে ফেলা হয়েছে।',
-                                                      icon: 'success',
-                                                      confirmButtonText: 'ঠিক আছে',
-                                                }).then(() => {
-                                                      location.reload();
-                                                });
-                                          } else {
-                                                Swal.fire('Failed!', 'প্রতিবেদনটি মুছে ফেলা যায়নি।', 'error');
-                                          }
-                                    })
-                                    .catch(error => {
-                                          console.error("Fetch Error:", error);
-                                          Swal.fire('Failed!', 'An error occurred. Please contact support.', 'error');
+                        if (!result.isConfirmed) return;
+
+                        $.ajax({
+                              url: window.APPLICATION_STATUS_URL.replace(':id', id),
+                              type: 'POST',
+                              data: {
+                                    _token: window.CSRF_TOKEN,
+                                    status: status
+                              },
+                              success: function (res) {
+                                    Swal.fire({
+                                          icon: 'success',
+                                          text: res.message,
+                                          timer: 1500,
+                                          showConfirmButton: false
                                     });
-                        }
+
+                                    datatable.ajax.reload(null, false);
+                              },
+                              error: function (xhr) {
+                                    Swal.fire({
+                                          icon: 'error',
+                                          text: xhr.responseJSON?.message || 'কিছু একটা সমস্যা হয়েছে'
+                                    });
+                              }
+                        });
                   });
             });
       };
 
-
+      /* -------------------------------------------
+       * Init
+       * ----------------------------------------- */
       return {
-            // Public functions
             init: function () {
-                  table = document.getElementById('kt_all_reports_table');
-
-                  if (!table) {
-                        return;
-                  }
-
                   initDatatable();
-                  exportButtons();
+                  initSelect2();
                   handleSearch();
-                  handleFilter();
-                  handleDeletion();
+                  handleFilters();
+                  handleExport();
+                  handleActions();
             }
-      }
-}();
+      };
+})();
 
-
-/* --------------------------------------------------
+/* -------------------------------------------
  * DOM Ready
- * -------------------------------------------------- */
-KTUtil.onDOMContentLoaded(function () {
-      AllReportsList.init();
+ * ----------------------------------------- */
+document.addEventListener('DOMContentLoaded', function () {
+      ApplicationsTable.init();
 });

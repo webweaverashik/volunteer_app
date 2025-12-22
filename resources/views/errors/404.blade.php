@@ -2,13 +2,13 @@
 <html lang="en">
 <!--begin::Head-->
 @section('title', 'Page not found')
-@include('layouts.partials.head')
+@include('admin.layouts.partials.head')
 <!--end::Head-->
 <!--begin::Body-->
 
 <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
     <!--begin::Theme mode setup on page load-->
-    @include('layouts.partials.theme_mode')
+    @include('admin.layouts.partials.theme_mode')
     <!--end::Theme mode setup on page load-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root" id="kt_app_root">
@@ -46,7 +46,7 @@
                         <!--end::Illustration-->
                         <!--begin::Link-->
                         <div class="mb-0">
-                            <a href="{{ route('dashboard') }}" class="btn btn-primary">হোমপেজে ফিরে যান</a>
+                            <a href="{{ route('home') }}" class="btn btn-primary">হোমপেজে ফিরে যান</a>
                         </div>
                         <!--end::Link-->
                     </div>
@@ -58,7 +58,7 @@
         <!--end::Authentication - Signup Welcome Message-->
     </div>
     <!--end::Root-->
-    @include('layouts.partials.scripts')
+    @include('admin.layouts.partials.scripts')
 
 </body>
 <!--end::Body-->

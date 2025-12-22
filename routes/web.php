@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('volunteer')->name('volunteer.')->group(function () {
-    Route::get('/', [VolunteerController::class, 'create'])->name('create');
-    Route::post('/', [VolunteerController::class, 'store'])->name('store');
-    Route::get('success', [VolunteerController::class, 'success'])->name('success');
-});
+Route::prefix('volunteer')
+    ->name('volunteer.')
+    ->group(function () {
+        Route::get('/', [VolunteerController::class, 'create'])->name('create');
+        Route::post('/', [VolunteerController::class, 'store'])->name('store');
+        Route::get('success', [VolunteerController::class, 'success'])->name('success');
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,9 @@ Route::middleware(['auth', 'isLoggedIn'])->group(function () {
     // ------- Custom routes start -------
     // Applications
     Route::get('admin/applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('admin/applications/data', [ApplicationController::class, 'data'])->name('applications.data');
+    Route::get('admin/applications/export/excel', [ApplicationController::class, 'exportExcel'])->name('applications.export.excel');
+    Route::post('admin/applications/{volunteer}/status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
 
     // Users
     Route::post('admin/users/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggleActive');

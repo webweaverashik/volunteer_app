@@ -28,8 +28,7 @@ class VolunteerSeeder extends Seeder
         $times       = ['morning', 'noon', 'afternoon', 'evening', 'anytime'];
         $statuses    = ['pending', 'approved', 'rejected'];
 
-        foreach (range(1, 50) as $i) {
-
+        foreach (range(1, 5000) as $i) {
             $volunteer = Volunteer::create([
                 'full_name'              => $faker->name,
                 'mobile'                 => '01' . rand(3, 9) . rand(10000000, 99999999),
@@ -44,16 +43,14 @@ class VolunteerSeeder extends Seeder
                 'reference'              => rand(0, 1) ? $faker->name : null,
                 'weekly_hours'           => $faker->randomElement($weeklyHours),
                 'preferred_time'         => $faker->randomElement($times),
-                'comments'               => rand(0, 1) ? 'স্বেচ্ছাসেবক হিসেবে কাজ করতে আগ্রহী।' : null,
+                'comments'               => $faker->address,
                 'other_team_description' => rand(0, 1) ? 'অনলাইন ক্যাম্পেইন ও মাঠ পর্যায়ে কাজ' : null,
                 'status'                 => $faker->randomElement($statuses),
             ]);
 
             // Attach volunteer teams (if any)
             if (! empty($teamIds)) {
-                $volunteer->teams()->attach(
-                    $faker->randomElements($teamIds, rand(1, min(3, count($teamIds))))
-                );
+                $volunteer->teams()->attach($faker->randomElements($teamIds, rand(1, min(3, count($teamIds)))));
             }
         }
 

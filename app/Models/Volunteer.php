@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +31,7 @@ class Volunteer extends Model
 
     protected $casts = [
         'sylhet3_resident' => 'boolean',
-        'age' => 'integer',
+        'age'              => 'integer',
     ];
 
     public function upazila(): BelongsTo
@@ -67,24 +66,24 @@ class Volunteer extends Model
 
     public function getWeeklyHoursLabelAttribute(): string
     {
-        return match($this->weekly_hours) {
-            '1-4' => '১-৪ ঘন্টা',
-            '5-8' => '৫-৮ ঘন্টা',
-            '9-12' => '৯-১২ ঘন্টা',
-            '12+' => '১২ ঘন্টা +',
+        return match ($this->weekly_hours) {
+            '1-4'   => '১-৪ ঘন্টা',
+            '5-8'   => '৫-৮ ঘন্টা',
+            '9-12'  => '৯-১২ ঘন্টা',
+            '12+'   => '১২ ঘন্টা +',
             default => 'নির্ধারিত নয়',
         };
     }
 
     public function getPreferredTimeLabelAttribute(): string
     {
-        return match($this->preferred_time) {
-            'morning' => '🌅 সকাল',
-            'noon' => '☀️ দুপুর',
+        return match ($this->preferred_time) {
+            'morning'   => '🌅 সকাল',
+            'noon'      => '☀️ দুপুর',
             'afternoon' => '🌤️ বিকাল',
-            'evening' => '🌆 সন্ধ্যা',
-            'anytime' => '✅ যেকোনো সময়',
-            default => 'নির্ধারিত নয়',
+            'evening'   => '🌆 সন্ধ্যা',
+            'anytime'   => '✅ যেকোনো সময়',
+            default     => 'নির্ধারিত নয়',
         };
     }
 }
