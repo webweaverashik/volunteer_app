@@ -14,7 +14,7 @@
             <div class="faq-item bg-white rounded-2xl card-shadow overflow-hidden">
                 <button class="faq-question w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-gray-50 transition">
                     <span class="font-bold text-gray-800 text-lg flex items-center gap-3">
-                        <span class="w-10 h-10 bg-{{ $faq->color }}-100 rounded-full flex items-center justify-center text-{{ $faq->color }}-600 flex-shrink-0">{{ $index + 1 }}</span>
+                        <span class="w-10 h-10 bg-{{ $faq->color }}-100 rounded-full flex items-center justify-center text-{{ $faq->color }}-600 flex-shrink-0">{{ toBengaliNumber($index + 1) }}</span>
                         {{ $faq->question_bn }}
                     </span>
                     <svg class="faq-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
