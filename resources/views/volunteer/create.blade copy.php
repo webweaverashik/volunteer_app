@@ -21,7 +21,7 @@
             </div>
 
             <div class="bg-white rounded-2xl card-shadow p-6 md:p-8">
-                {{-- Server-side Error Messages --}}
+                {{-- Error Messages --}}
                 @if ($errors->any())
                     <div class="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
                         <div class="flex items-center gap-2 text-red-700 font-semibold mb-2">
@@ -35,7 +35,7 @@
                     </div>
                 @endif
 
-                <form id="volunteerForm" action="{{ route('volunteer.store') }}" method="POST" novalidate>
+                <form id="volunteerForm" action="{{ route('volunteer.store') }}" method="POST">
                     @csrf
 
                     <!-- Section 1: Personal Info -->
@@ -48,11 +48,11 @@
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">পূর্ণ নাম <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" name="full_name" value="{{ old('full_name') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('full_name') border-red-500 @enderror"
+                                <input type="text" name="full_name" value="{{ old('full_name') }}" required
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('full_name') border-red-500 @enderror"
                                     placeholder="আপনার পূর্ণ নাম লিখুন">
                                 @error('full_name')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="full_name">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
@@ -60,18 +60,18 @@
                                     মোবাইল নম্বর <span class="text-red-500">*</span>
                                 </label>
 
-                                <input type="text" name="mobile" value="{{ old('mobile') }}" inputmode="numeric"
-                                    maxlength="11"
+                                <input type="text" name="mobile" value="{{ old('mobile') }}" required
+                                    inputmode="numeric" maxlength="11"
                                     oninput="
-                                        this.value = this.value.replace(/[^0-9]/g, '');
-                                        if (this.value.length === 1 && this.value !== '0') this.value = '';
-                                        if (this.value.length === 2 && this.value !== '01') this.value = '01';
-                                    "
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('mobile') border-red-500 @enderror"
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length === 1 && this.value !== '0') this.value = '';
+            if (this.value.length === 2 && this.value !== '01') this.value = '01';
+        "
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('mobile') border-red-500 @enderror"
                                     placeholder="01XXXXXXXXX">
 
                                 @error('mobile')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="mobile">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -79,10 +79,10 @@
                                 <label class="block text-gray-700 font-medium mb-2">এনআইডি নম্বর</label>
                                 <input type="text" name="nid" value="{{ old('nid') }}" inputmode="numeric"
                                     maxlength="17" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('nid') border-red-500 @enderror"
-                                    placeholder="জাতীয় পরিচয়পত্র নম্বর লিখুন">
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('nid') border-red-500 @enderror"
+                                    placeholder="জাতীয় পরিচয়পত্র নম্বর লিখুন">
                                 @error('nid')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="nid">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -99,22 +99,20 @@
                         </p>
                         <div class="flex gap-4">
                             <label
-                                class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-green-50 hover:border-green-300 transition flex-1 justify-center has-[:checked]:bg-green-50 has-[:checked]:border-green-500">
+                                class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-green-50 hover:border-green-300 transition flex-1 justify-center">
                                 <input type="radio" name="sylhet3_resident" value="yes"
-                                    {{ old('sylhet3_resident') == 'yes' ? 'checked' : '' }}
-                                    class="w-5 h-5 text-green-600 focus:ring-green-500">
+                                    {{ old('sylhet3_resident') == 'yes' ? 'checked' : '' }} class="w-5 h-5 text-green-600">
                                 <span class="text-gray-800 font-medium">✅ হ্যাঁ</span>
                             </label>
                             <label
-                                class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-red-50 hover:border-red-300 transition flex-1 justify-center has-[:checked]:bg-red-50 has-[:checked]:border-red-500">
+                                class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-red-50 hover:border-red-300 transition flex-1 justify-center">
                                 <input type="radio" name="sylhet3_resident" value="no"
-                                    {{ old('sylhet3_resident') == 'no' ? 'checked' : '' }}
-                                    class="w-5 h-5 text-green-600 focus:ring-green-500">
+                                    {{ old('sylhet3_resident') == 'no' ? 'checked' : '' }} class="w-5 h-5 text-green-600">
                                 <span class="text-gray-800 font-medium">❌ না</span>
                             </label>
                         </div>
                         @error('sylhet3_resident')
-                            <p class="text-red-500 text-sm mt-1" data-error-for="sylhet3_resident">{{ $message }}</p>
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -129,8 +127,8 @@
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">উপজেলা <span
                                         class="text-red-500">*</span></label>
-                                <select name="upazila_id"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 bg-white @error('upazila_id') border-red-500 @enderror">
+                                <select name="upazila_id" required
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition bg-white @error('upazila_id') border-red-500 @enderror">
                                     <option value="">উপজেলা নির্বাচন করুন</option>
                                     @foreach ($upazilas as $upazila)
                                         <option value="{{ $upazila->id }}"
@@ -142,38 +140,36 @@
                                     @endforeach
                                 </select>
                                 @error('upazila_id')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="upazila_id">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">ইউনিয়ন <span
                                         class="text-red-500">*</span></label>
-                                <input type="text" name="union_name" value="{{ old('union_name') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('union_name') border-red-500 @enderror"
+                                <input type="text" name="union_name" value="{{ old('union_name') }}" required
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('union_name') border-red-500 @enderror"
                                     placeholder="আপনার ইউনিয়নের নাম লিখুন">
                                 @error('union_name')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="union_name">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">আপনার ঠিকানা <span
                                         class="text-red-500">*</span></label>
-                                <textarea name="current_address" rows="2"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('current_address') border-red-500 @enderror"
+                                <textarea name="current_address" required rows="2"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('current_address') border-red-500 @enderror"
                                     placeholder="আপনার বর্তমান ঠিকানা লিখুন (গ্রাম/মহল্লা, ইউনিয়ন/ওয়ার্ড, উপজেলা)">{{ old('current_address') }}</textarea>
                                 @error('current_address')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="current_address">{{ $message }}
-                                    </p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">ভোট কেন্দ্র</label>
                                 <input type="text" name="voting_center" value="{{ old('voting_center') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('voting_center') border-red-500 @enderror"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('voting_center') border-red-500 @enderror"
                                     placeholder="আপনার ভোট কেন্দ্রের নাম লিখুন">
                                 @error('voting_center')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="voting_center">{{ $message }}
-                                    </p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -189,13 +185,13 @@
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">বয়স লিখুন <span
                                     class="text-red-500">*</span></label>
-                            <input type="number" name="age" value="{{ old('age') }}" min="18"
+                            <input type="number" name="age" value="{{ old('age') }}" required min="18"
                                 max="80"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('age') border-red-500 @enderror"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('age') border-red-500 @enderror"
                                 placeholder="বয়স লিখুন (১৮-৮০)">
                             <p class="text-gray-500 text-sm mt-1">১৮ বছর বা তার উর্ধ্বে হতে হবে</p>
                             @error('age')
-                                <p class="text-red-500 text-sm mt-1" data-error-for="age">{{ $message }}</p>
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -211,7 +207,7 @@
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">পেশা</label>
                                 <select name="occupation_id"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 bg-white @error('occupation_id') border-red-500 @enderror">
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition bg-white @error('occupation_id') border-red-500 @enderror">
                                     <option value="">পেশা নির্বাচন করুন</option>
                                     @foreach ($occupations as $occupation)
                                         <option value="{{ $occupation->id }}"
@@ -221,8 +217,7 @@
                                     @endforeach
                                 </select>
                                 @error('occupation_id')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="occupation_id">{{ $message }}
-                                    </p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
@@ -234,10 +229,10 @@
                                     @php $teamLetters = ['ক', 'খ', 'গ', 'ঘ', 'ঙ', 'চ', 'ছ', 'জ', 'ঝ']; @endphp
                                     @foreach ($teams as $index => $team)
                                         <label
-                                            class="flex items-start gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-{{ $team->color }}-50 hover:border-{{ $team->color }}-300 transition has-[:checked]:bg-{{ $team->color }}-50 has-[:checked]:border-{{ $team->color }}-500 has-[:checked]:ring-2 has-[:checked]:ring-{{ $team->color }}-200">
+                                            class="flex items-start gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-{{ $team->color }}-50 hover:border-{{ $team->color }}-300 transition">
                                             <input type="checkbox" name="teams[]" value="{{ $team->id }}"
                                                 {{ is_array(old('teams')) && in_array($team->id, old('teams')) ? 'checked' : '' }}
-                                                class="team-checkbox w-5 h-5 mt-0.5 text-green-600 rounded flex-shrink-0 focus:ring-green-500"
+                                                class="team-checkbox w-5 h-5 mt-0.5 text-green-600 rounded flex-shrink-0"
                                                 @if ($team->slug === 'other') id="otherTeamCheckbox" @endif>
                                             <div class="flex-1">
                                                 <span class="font-bold text-gray-800 flex items-center gap-2">
@@ -251,7 +246,7 @@
                                     @endforeach
                                 </div>
                                 @error('teams')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="teams">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
 
                                 <!-- Other Team Description -->
@@ -259,17 +254,17 @@
                                     class="mt-4 {{ old('other_team_description') ? '' : 'hidden' }}">
                                     <input type="text" name="other_team_description"
                                         value="{{ old('other_team_description') }}"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 transition"
                                         placeholder="আপনি কিভাবে অবদান রাখতে চান লিখুন...">
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">রেফারেন্স (যদি থাকে)</label>
                                 <input type="text" name="reference" value="{{ old('reference') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 @error('reference') border-red-500 @enderror"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 transition @error('reference') border-red-500 @enderror"
                                     placeholder="রেফারারের নাম ও মোবাইল">
                                 @error('reference')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="reference">{{ $message }}</p>
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -286,43 +281,35 @@
                             <!-- Weekly Hours -->
                             <div>
                                 <label class="block text-gray-700 font-medium mb-3">আপনি সপ্তাহে কত ঘন্টা সময় দিতে
-                                    পারবেন? <span class="text-red-500">*</span></label>
+                                    পারবেন?</label>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                                     @foreach (['1-4' => '১-৪ ঘন্টা', '5-8' => '৫-৮ ঘন্টা', '9-12' => '৯-১২ ঘন্টা', '12+' => '১২ ঘন্টা +'] as $value => $label)
                                         <label
-                                            class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500 has-[:checked]:ring-2 has-[:checked]:ring-blue-200">
+                                            class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition">
                                             <input type="radio" name="weekly_hours" value="{{ $value }}"
                                                 {{ old('weekly_hours') == $value ? 'checked' : '' }}
-                                                class="w-4 h-4 text-green-600 focus:ring-green-500">
+                                                class="w-4 h-4 text-green-600">
                                             <span class="text-gray-800">{{ $label }}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                @error('weekly_hours')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="weekly_hours">{{ $message }}
-                                    </p>
-                                @enderror
                             </div>
 
                             <!-- Preferred Time -->
                             <div>
                                 <label class="block text-gray-700 font-medium mb-3">কোন সময়টা আপনার জন্য
-                                    সুবিধাজনক? <span class="text-red-500">*</span></label>
+                                    সুবিধাজনক?</label>
                                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
                                     @foreach (['morning' => '🌅 সকাল', 'noon' => '☀️ দুপুর', 'afternoon' => '🌤️ বিকাল', 'evening' => '🌆 সন্ধ্যা', 'anytime' => '✅ যেকোনো সময়'] as $value => $label)
                                         <label
-                                            class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500 has-[:checked]:ring-2 has-[:checked]:ring-blue-200">
+                                            class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition">
                                             <input type="radio" name="preferred_time" value="{{ $value }}"
                                                 {{ old('preferred_time') == $value ? 'checked' : '' }}
-                                                class="w-4 h-4 text-green-600 focus:ring-green-500">
+                                                class="w-4 h-4 text-green-600">
                                             <span class="text-gray-800">{{ $label }}</span>
                                         </label>
                                     @endforeach
                                 </div>
-                                @error('preferred_time')
-                                    <p class="text-red-500 text-sm mt-1" data-error-for="preferred_time">{{ $message }}
-                                    </p>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -338,20 +325,18 @@
                             <label class="block text-gray-700 font-medium mb-2">আপনার কোনো মন্তব্য, পরামর্শ বা এলাকার
                                 সমস্যা থাকলে লিখুন <span class="text-gray-400 text-sm font-normal">(ঐচ্ছিক)</span></label>
                             <textarea name="comments" rows="4"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200 resize-none @error('comments') border-red-500 @enderror"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 transition resize-none @error('comments') border-red-500 @enderror"
                                 placeholder="আপনার কোনো মন্তব্য, পরামর্শ বা এলাকার সমস্যা থাকলে লিখুন...">{{ old('comments') }}</textarea>
                             @error('comments')
-                                <p class="text-red-500 text-sm mt-1" data-error-for="comments">{{ $message }}</p>
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <!-- Terms -->
                     <div class="mb-6">
-                        <label
-                            class="flex items-start gap-3 cursor-pointer p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition has-[:checked]:bg-green-50 has-[:checked]:border-green-300">
-                            <input type="checkbox" name="terms"
-                                class="w-5 h-5 mt-0.5 text-green-600 rounded focus:ring-green-500"
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="terms" required class="w-5 h-5 mt-0.5 text-green-600"
                                 {{ old('terms') ? 'checked' : '' }}>
                             <span class="text-gray-600 text-sm">
                                 আমি নিশ্চিত করছি যে উপরের সকল তথ্য সঠিক এবং আমি স্বেচ্ছায় সিলেট-৩ আসনে ব্যারিস্টার নুরুল
@@ -360,16 +345,14 @@
                             </span>
                         </label>
                         @error('terms')
-                            <p class="text-red-500 text-sm mt-1" data-error-for="terms">{{ $message }}</p>
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" id="submitBtn"
-                        class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl disabled:opacity-75 disabled:cursor-not-allowed disabled:transform-none">
-                        <span class="inline-flex items-center justify-center gap-2">
-                            <span>✅</span> স্বেচ্ছাসেবক হিসেবে নিবন্ধন করুন
-                        </span>
+                        class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition transform hover:scale-[1.02] shadow-lg">
+                        স্বেচ্ছাসেবক হিসেবে নিবন্ধন করুন
                     </button>
                 </form>
             </div>
@@ -395,11 +378,10 @@
             <div class="mt-6 text-center text-gray-600">
                 <p class="mb-2">যে কোনো প্রয়োজনে যোগাযোগ করুন:</p>
                 <div class="flex justify-center gap-6 flex-wrap">
-                    <a href="tel:+8801XXXXXXXXX" class="flex items-center gap-2 hover:text-green-600 transition">
+                    <a href="tel:+8801XXXXXXXXX" class="flex items-center gap-2 hover:text-green-600">
                         <span>📞</span> ০১XXXXXXXXX
                     </a>
-                    <a href="mailto:info@nurulhudajunaid.com"
-                        class="flex items-center gap-2 hover:text-green-600 transition">
+                    <a href="mailto:info@nurulhudajunaid.com" class="flex items-center gap-2 hover:text-green-600">
                         <span>✉️</span> info@nurulhudajunaid.com
                     </a>
                 </div>
@@ -409,6 +391,32 @@
 @endsection
 
 @push('scripts')
-    {{-- External Validation Script --}}
-    <script src="{{ asset('home/js/volunteer/create.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const otherTeamCheckbox = document.getElementById('otherTeamCheckbox');
+            const otherTeamInput = document.getElementById('otherTeamInput');
+
+            if (otherTeamCheckbox && otherTeamInput) {
+                otherTeamCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        otherTeamInput.classList.remove('hidden');
+                    } else {
+                        otherTeamInput.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Form submission loading state
+            const form = document.getElementById('volunteerForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (form && submitBtn) {
+                form.addEventListener('submit', function() {
+                    submitBtn.innerHTML =
+                        '<span class="inline-block animate-spin mr-2">⏳</span> অপেক্ষা করুন...';
+                    submitBtn.disabled = true;
+                });
+            }
+        });
+    </script>
 @endpush

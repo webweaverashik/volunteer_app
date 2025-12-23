@@ -9,21 +9,14 @@ return new class extends Migration {
     {
         Schema::create('volunteers', function (Blueprint $table) {
             $table->id();
-
             $table->string('full_name')->index('idx_volunteers_full_name');
             $table->string('mobile')->index('idx_volunteers_mobile');
             $table->string('nid')->nullable()->index('idx_volunteers_nid');
-
             $table->boolean('sylhet3_resident')->default(false)->index('idx_volunteers_sylhet3');
-
-            $table->foreignId('upazila_id')->nullable()->constrained()->nullOnDelete()->index('idx_volunteers_upazila');
-
+            $table->foreignId('upazila_id')->constrained()->cascadeOnDelete()->index('idx_volunteers_upazila');
             $table->string('union_name')->index('idx_volunteers_union_name');
-
             $table->text('current_address');
-
             $table->string('voting_center')->nullable()->index('idx_volunteers_voting_center');
-
             $table->integer('age');
 
             $table->foreignId('occupation_id')->nullable()->constrained()->nullOnDelete()->index('idx_volunteers_occupation');

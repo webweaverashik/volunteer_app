@@ -27,8 +27,8 @@ class VolunteerRequest extends FormRequest
             'teams.*'                => ['exists:volunteer_teams,id'],
             'other_team_description' => ['nullable', 'string', 'max:500'],
             'reference'              => ['nullable', 'string', 'max:255'],
-            'weekly_hours'           => ['nullable', 'in:1-4,5-8,9-12,12+'],
-            'preferred_time'         => ['nullable', 'in:morning,noon,afternoon,evening,anytime'],
+            'weekly_hours'           => ['required', 'in:1-4,5-8,9-12,12+'],
+            'preferred_time'         => ['required', 'in:morning,noon,afternoon,evening,anytime'],
             'comments'               => ['nullable', 'string', 'max:2000'],
             'terms'                  => ['required', 'accepted'],
         ];
