@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'ব্যারিস্টার নুরুল হুদা জুনেদ | সিলেট-৩ | জাতীয় নাগরিক পার্টি (NCP) | শাপলা কলি')</title>
-    <link rel="shortcut icon" href="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" />
+    <link rel="shortcut icon" href="{{ asset('img/58-shapla-koli-protik.webp') }}" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

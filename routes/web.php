@@ -50,7 +50,7 @@ Route::middleware(['auth', 'isLoggedIn'])->group(function () {
     // Dashboard
     Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('admin/dashboard/trend-data', [DashboardController::class, 'getTrendData'])->name('dashboard.trend');
-    
+
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     // ------- Custom routes start -------
@@ -69,3 +69,36 @@ Route::middleware(['auth', 'isLoggedIn'])->group(function () {
     // Resource routes
     Route::resource('admin/users', UserController::class);
 });
+
+Route::get('/run-command/{slug}', function (string $slug) {
+    // ❌ Block completely in production
+    // abort_if(app()->environment('production'), 404);
+
+    // // 🔐 Must be logged in
+    // abort_unless(auth()->check(), 403);
+
+    // // 🔐 Must be Administrator
+    // abort_unless(auth()->user()->role && auth()->user()->role->name === 'Administrator', 403);
+
+    // ✅ Allowed slug → command mapping
+    $commands = [
+        'optimize-clear'       => 'optimize:clear',
+        'migrate'              => 'migrate',
+        'migrate-seed'         => 'migrate --seed',
+        'migrate-refresh'      => 'migrate:refresh',
+        'migrate-refresh-seed' => 'migrate:refresh --seed',
+        'migrate-fresh-seed'   => 'migrate:fresh --seed',
+    ];
+
+    // abort_unless(array_key_exists($slug, $commands), 404);
+
+    // ▶ Run command
+    Artisan::call($commands[$slug]);
+
+    return response()->json([
+        'success' => true,
+        'slug'    => $slug,
+        'command' => $commands[$slug],
+        'output'  => Artisan::output(),
+    ]);
+})->name('run.command');

@@ -9,7 +9,7 @@
     <section class="relative min-h-[90svh] flex items-center overflow-hidden">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0">
-            <img src="https://i.ibb.co.com/bMGVrLQX/hero-image.png" alt="Hero Background" class="w-full h-full object-cover">
+            <img src="{{ asset('img/hero-image.webp') }}" alt="Hero Background" class="w-full h-full object-cover">
             <!-- Light Gradient Overlay -->
             <div class="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-blue-900/50 to-blue-900/30"></div>
         </div>
@@ -26,7 +26,7 @@
                             <span>সিলেট-৩ নির্বাচনী এলাকা</span>
                         </div>
                         <div class="inline-flex items-center gap-2 bg-green-500/20 border border-green-400/30 text-green-300 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm">
-                            <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি" class="w-6 h-6 rounded-full bg-white p-0.5">
+                            <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি" class="w-6 h-6 rounded-full bg-white p-0.5">
                             <span>জাতীয় নাগরিক পার্টি (NCP)</span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <span class="text-green-400 drop-shadow-lg">নুরুল হুদা জুনেদ</span>
                     </h1>
                     <p class="text-md text-pink-300 mb-6 font-semibold flex items-center gap-2">
-                        <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি" class="w-5 h-5 rounded-full bg-white p-0.5">
+                        <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি" class="w-5 h-5 rounded-full bg-white p-0.5">
                         প্রতীক: শাপলা কলি | সিলেট-৩
                     </p>
                     <p class="text-lg text-blue-100/90 mb-8 max-w-2xl leading-relaxed">

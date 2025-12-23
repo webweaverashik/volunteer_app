@@ -11,13 +11,13 @@
                     <div class="absolute -inset-4 bg-gradient-to-br from-green-400/20 to-blue-500/20 rounded-2xl blur-xl"></div>
                     <div class="absolute -inset-2 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl opacity-20"></div>
                     <div class="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden border-4 border-white shadow-2xl">
-                        <img src="https://i.ibb.co.com/d0QMqCzV/Barrister-Nurul-Huda-Junaid.jpg" alt="ব্যারিস্টার নুরুল হুদা জুনেদ" class="w-full h-full object-cover">
+                        <img src="{{ asset('img/barrister-nurul-huda-juned.webp') }}" alt="ব্যারিস্টার নুরুল হুদা জুনেদ" class="w-full h-full object-cover">
                     </div>
                     <div class="absolute -top-2 -right-2 bg-green-500 text-white px-4 py-2 rounded-full font-bold shadow-lg flex items-center gap-1 text-sm">
                         <span>সিলেট-৩</span> <span>🗳️</span>
                     </div>
                     <div class="absolute -bottom-2 -left-2 bg-white text-blue-900 px-3 py-2 rounded-full font-bold shadow-lg flex items-center gap-2">
-                        <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি" class="w-8 h-8 rounded-full">
+                        <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি" class="w-8 h-8 rounded-full">
                         <span class="text-sm">শাপলা কলি</span>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
             <div class="md:col-span-8">
                 <div class="bg-white p-8 rounded-2xl card-shadow">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি" class="w-12 h-12 rounded-full bg-pink-50 p-1 border-2 border-pink-200">
+                        <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি" class="w-12 h-12 rounded-full bg-pink-50 p-1 border-2 border-pink-200">
                         <div>
                             <h3 class="text-2xl font-bold text-blue-900">ব্যারিস্টার নুরুল হুদা জুনেদ</h3>
                             <p class="text-sm text-pink-600 font-medium">সিলেট-৩ | জাতীয় নাগরিক পার্টি (NCP) | প্রতীক: শাপলা কলি</p>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 rounded-xl text-white">
                         <div class="flex items-center gap-3 mb-3">
-                            <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি" class="w-12 h-12 rounded-full bg-white p-1">
+                            <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি" class="w-12 h-12 rounded-full bg-white p-1">
                             <div>
                                 <h4 class="font-bold text-lg">সংসদ সদস্য পদপ্রার্থী</h4>
                                 <p class="text-green-100 text-sm">সিলেট-৩ আসন</p>

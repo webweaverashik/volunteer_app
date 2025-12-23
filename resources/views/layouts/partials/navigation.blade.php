@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <a href="{{ route('home') }}" class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden p-1">
-                    <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg"
+                    <img src="{{ asset('img/58-shapla-koli-protik.webp') }}"
                         alt="শাপলা কলি - প্রতীক" class="w-full h-full object-contain">
                 </div>
                 <div>

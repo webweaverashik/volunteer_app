@@ -4,8 +4,8 @@
             <div>
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden p-1">
-                        <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg"
-                            alt="শাপলা কলি - প্রতীক" class="w-full h-full object-contain">
+                        <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি - প্রতীক"
+                            class="w-full h-full object-contain">
                     </div>
                     <div>
                         <h3 class="font-bold">নুরুল হুদা জুনেদ</h3>
@@ -19,7 +19,8 @@
                 <ul class="space-y-2 text-gray-400">
                     <li><a href="{{ route('home') }}" class="hover:text-white transition">হোম</a></li>
                     <li><a href="{{ route('home') }}#about" class="hover:text-white transition">পরিচিতি</a></li>
-                    <li><a href="{{ route('volunteer.create') }}" class="hover:text-white transition">স্বেচ্ছাসেবক</a></li>
+                    <li><a href="{{ route('volunteer.create') }}" class="hover:text-white transition">স্বেচ্ছাসেবক</a>
+                    </li>
                     <li><a href="#faq" class="hover:text-white transition">প্রায়শই জিজ্ঞাসিত প্রশ্ন</a></li>
                 </ul>
             </div>
@@ -33,7 +34,17 @@
             </div>
         </div>
         <div class="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
-            <p>© {{ date('Y') }} ব্যারিস্টার নুরুল হুদা জুনেদ | সিলেট-৩ | জাতীয় নাগরিক পার্টি (NCP)। সর্বস্বত্ব সংরক্ষিত।</p>
+            <p class="flex flex-wrap justify-center items-center gap-2">
+                <span>
+                    © {{ toBengaliNumber(date('Y')) }}
+                </span>
+                <span>|</span>
+                <a href="https://www.facebook.com/webweaverashik" target="_blank"
+                    class="text-blue-600 hover:text-blue-800 transition font-medium">
+                    আশিকুর রহমান
+                </a>
+            </p>
         </div>
+
     </div>
 </footer>

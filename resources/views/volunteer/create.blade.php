@@ -348,13 +348,13 @@
             <!-- Candidate Info Card -->
             <div class="mt-8 bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-6 border border-blue-100">
                 <div class="flex items-center gap-4">
-                    <img src="https://i.ibb.co.com/d0QMqCzV/Barrister-Nurul-Huda-Junaid.jpg"
+                    <img src="{{ asset('img/juned.webp') }}"
                         alt="ব্যারিস্টার নুরুল হুদা জুনেদ" class="w-16 h-20 object-cover border-2 border-white shadow-lg">
                     <div>
                         <h4 class="font-bold text-gray-800">ব্যারিস্টার নুরুল হুদা জুনেদ</h4>
                         <p class="text-sm text-gray-600">সিলেট-৩ | জাতীয় নাগরিক পার্টি (NCP)</p>
                         <div class="flex items-center gap-2 mt-1">
-                            <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg"
+                            <img src="{{ asset('img/58-shapla-koli-protik.webp') }}"
                                 alt="শাপলা কলি" class="w-5 h-5 rounded-full bg-white">
                             <span class="text-sm text-pink-600 font-medium">প্রতীক: শাপলা কলি</span>
                         </div>

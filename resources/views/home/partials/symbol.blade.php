@@ -5,7 +5,7 @@
             <div class="relative">
                 <div class="absolute -inset-3 bg-gradient-to-br from-pink-400/30 to-green-400/30 rounded-full blur-lg animate-pulse"></div>
                 <div class="relative w-32 h-32 md:w-40 md:h-40 bg-white rounded-full p-3 shadow-xl border-4 border-pink-200 overflow-hidden">
-                    <img src="https://www.ecs.gov.bd/bec/public/photos/1/political%20party%20pic/58-shapla-koli-protik.jpg" alt="শাপলা কলি - নির্বাচনী প্রতীক" class="w-full h-full object-contain">
+                    <img src="{{ asset('img/58-shapla-koli-protik.webp') }}" alt="শাপলা কলি - নির্বাচনী প্রতীক" class="w-full h-full object-contain">
                 </div>
             </div>
             <!-- Symbol Info -->
