@@ -15,7 +15,7 @@
         <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('dashboard') }}" class="d-lg-none">
-                <img alt="Logo" src="{{ asset('assets/img/logo-light.png') }}" class="h-40px" />
+                <img alt="Logo" src="{{ asset('img/58-shapla-koli-protik.webp') }}" class="h-40px rounded-circle" />
             </a>
         </div>
         <!--end::Mobile logo-->

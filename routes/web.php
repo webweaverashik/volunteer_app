@@ -47,7 +47,10 @@ Route::middleware('guest')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'isLoggedIn'])->group(function () {
+    // Dashboard
     Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('admin/dashboard/trend-data', [DashboardController::class, 'getTrendData'])->name('dashboard.trend');
+    
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     // ------- Custom routes start -------
