@@ -1,7 +1,7 @@
 @extends('admin.auth.app')
 
 
-@section('title', 'Sign In')
+@section('title', 'সাইন ইন')
 
 @section('content')
     <!--begin::Form-->

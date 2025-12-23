@@ -16,7 +16,7 @@ var KTUsersList = function () {
                   "lengthChange": true,
                   "autoWidth": false,  // Disable auto width
                   'columnDefs': [{
-                        orderable: false, targets: [9, 10]
+                        // orderable: false, targets: [5, 6]
                   }]
             });
 
@@ -33,64 +33,6 @@ var KTUsersList = function () {
                   datatable.search(e.target.value).draw();
             });
       }
-
-      // Delete users
-      var handleDeletion = function () {
-            document.querySelectorAll('.delete-user').forEach(item => {
-                  item.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        let userId = this.getAttribute('data-user-id');
-                        console.log('User ID:', userId);
-
-                        let url = routeDeleteUser.replace(':id', userId);  // Replace ':id' with actual user ID
-
-                        Swal.fire({
-                              title: 'আপনি কি নিশ্চিত ডিলিট করতে চান?',
-                              text: "ডিলিট করার পর এই ইউজারের কোনো তথ্য থাকবে না। ",
-                              icon: 'warning',
-                              showCancelButton: true,
-                              confirmButtonColor: '#3085d6',
-                              cancelButtonColor: '#d33',
-                              confirmButtonText: 'হ্যাঁ, ডিলিট করবো',
-                              cancelButtonText: 'ক্যানসেল',
-                        }).then((result) => {
-                              if (result.isConfirmed) {
-                                    fetch(url, {
-                                          method: "DELETE",
-                                          headers: {
-                                                "Content-Type": "application/json",
-                                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                                          },
-                                    })
-                                          .then(response => response.json())
-                                          .then(data => {
-                                                if (data.success) {
-                                                      Swal.fire({
-                                                            title: 'সফল!',
-                                                            text: 'ইউজারটি সফলভাবে ডিলিট করা হয়েছে।',
-                                                            icon: 'success',
-                                                            confirmButtonText: 'ঠিক আছে।'
-                                                      }).then(() => {
-                                                            location.reload(); // Reload to reflect changes
-                                                      });
-                                                } else {
-                                                      Swal.fire('ব্যর্থ!', 'ইউজার ডিলিট করা যায়নি।',
-                                                            'error');
-                                                }
-                                          })
-                                          .catch(error => {
-                                                console.error("Fetch Error:", error);
-                                                Swal.fire('ব্যর্থ!',
-                                                      'একটি ত্রুটি হয়েছে। অনুগ্রহ করে সাপোর্টে যোগাযোগ করুন।',
-                                                      'error');
-                                          });
-                              }
-                        });
-                  });
-            });
-      };
-
       // Toggle activation
       var handleToggleActivation = function () {
             const toggleInputs = document.querySelectorAll('.toggle-active');
@@ -138,47 +80,6 @@ var KTUsersList = function () {
             });
       };
 
-      // Filter Datatable
-      var handleFilter = function () {
-            // Select filter options
-            const filterForm = document.querySelector('[data-all-user-table-filter="form"]');
-            const filterButton = filterForm.querySelector('[data-all-user-table-filter="filter"]');
-            const resetButton = filterForm.querySelector('[data-all-user-table-filter="reset"]');
-            const selectOptions = filterForm.querySelectorAll('select');
-
-            // Filter datatable on submit
-            filterButton.addEventListener('click', function () {
-                  var filterString = '';
-
-                  // Get filter values
-                  selectOptions.forEach((item, index) => {
-                        if (item.value && item.value !== '') {
-                              if (index !== 0) {
-                                    filterString += ' ';
-                              }
-
-                              // Build filter value options
-                              filterString += item.value;
-                        }
-                  });
-
-                  // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-                  datatable.search(filterString).draw();
-            });
-
-            // Reset datatable
-            resetButton.addEventListener('click', function () {
-                  // Reset filter form
-                  selectOptions.forEach((item, index) => {
-                        // Reset Select2 dropdown --- official docs reference: https://select2.org/programmatic-control/add-select-clear-items
-                        $(item).val(null).trigger('change');
-                  });
-
-                  // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-                  datatable.search('').draw();
-            });
-      }
-
       return {
             // Public functions  
             init: function () {
@@ -190,13 +91,10 @@ var KTUsersList = function () {
 
                   initDatatable();
                   handleSearch();
-                  handleDeletion();
                   handleToggleActivation();
-                  handleFilter();
             }
       }
 }();
-
 
 var KTUsersEditPassword = function () {
       // Shared variables
@@ -342,11 +240,11 @@ var KTUsersEditPassword = function () {
                               'new_password': {
                                     validators: {
                                           notEmpty: {
-                                                message: 'Password is required'
+                                                message: 'পাসওয়ার্ড প্রয়োজন'
                                           },
                                           stringLength: {
                                                 min: 8,
-                                                message: '* Must be at least 8 characters long'
+                                                message: '* কমপক্ষে ৮ ডিজিট হতে হবে'
                                           },
                                           regexp: {
                                                 regexp: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/,
@@ -383,7 +281,7 @@ var KTUsersEditPassword = function () {
                                     formData.append('_method', 'PUT');
 
                                     console.log('Updating password for User ID:', userId);
-                                    fetch(`/users/${userId}/password`, {
+                                    fetch(`/admin/users/${userId}/password`, {
                                           method: 'POST',
                                           body: formData,
                                           headers: {
@@ -437,8 +335,345 @@ var KTUsersEditPassword = function () {
       };
 }();
 
+var KTEditUser = function () {
+      // Shared variables
+      const element = document.getElementById('kt_modal_edit_user');
+
+      // Early return if element doesn't exist
+      if (!element) {
+            console.error('Modal element not found');
+            return {
+                  init: function () { }
+            };
+      }
+
+      const form = element.querySelector('#kt_modal_edit_user_form');
+      const modal = bootstrap.Modal.getOrCreateInstance(element);
+
+      let userId = null; // Declare globally
+
+      // Init edit institution modal
+      var iniEditUser = () => {
+            // Cancel button handler
+            const cancelButton = element.querySelector('[data-kt-edit-users-modal-action="cancel"]');
+            if (cancelButton) {
+                  cancelButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        if (form) form.reset();
+                        modal.hide();
+                  });
+            }
+
+            // Close button handler
+            const closeButton = element.querySelector('[data-kt-edit-users-modal-action="close"]');
+            if (closeButton) {
+                  closeButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        if (form) form.reset();
+                        modal.hide();
+                  });
+            }
+
+            // Delegated click for edit buttons
+            document.addEventListener("click", function (e) {
+                  const button = e.target.closest("[data-bs-target='#kt_modal_edit_user']");
+                  if (!button) return;
+
+                  userId = button.getAttribute("data-user-id");
+                  if (!userId) return;
+
+                  // Clear form
+                  if (form) form.reset();
+
+                  fetch(`/admin/users/${userId}`)
+                        .then(response => {
+                              if (!response.ok) {
+                                    return response.json().then(errorData => {
+                                          throw new Error(errorData.message || 'Network response was not ok');
+                                    });
+                              }
+                              return response.json();
+                        })
+                        .then(data => {
+                              if (data.success && data.data) {
+                                    const user = data.data;
+
+                                    // Set values
+                                    const setValue = (selector, value) => {
+                                          const el = document.querySelector(selector);
+                                          if (el) el.value = value;
+                                    };
+
+                                    setValue("input[name='user_name_edit']", user.name);
+                                    setValue("input[name='email_edit']", user.email);
+
+                                    modal.show();
+                              } else {
+                                    throw new Error(data.message || 'Invalid response data');
+                              }
+                        })
+                        .catch(error => {
+                              console.error("Error:", error);
+                              toastr.error(error.message || "Failed to load institution details");
+                        });
+            });
+      };
+
+
+      // Form validation
+      var initValidation = function () {
+            if (!form) return;
+
+            var validator = FormValidation.formValidation(
+                  form,
+                  {
+                        fields: {
+                              'user_name_edit': {
+                                    validators: {
+                                          notEmpty: {
+                                                message: 'নাম উল্লেখ প্রয়োজন'
+                                          }
+                                    }
+                              },
+                              'email_edit': {
+                                    validators: {
+                                          notEmpty: {
+                                                message: 'লগিন করার জন্য ইউজারের ইমেইল প্রয়োজন'
+                                          },
+                                          emailAddress: {
+                                                message: 'অনুগ্রহ করে সঠিক ইমেইল দিন',
+                                          },
+                                    }
+                              },
+                        },
+                        plugins: {
+                              trigger: new FormValidation.plugins.Trigger(),
+                              bootstrap: new FormValidation.plugins.Bootstrap5({
+                                    rowSelector: '.fv-row',
+                                    eleInvalidClass: '',
+                                    eleValidClass: ''
+                              })
+                        }
+                  }
+            );
+
+            const submitButton = element.querySelector('[data-kt-edit-users-modal-action="submit"]');
+            if (submitButton && validator) {
+                  submitButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        validator.validate().then(function (status) {
+                              if (status == 'Valid') {
+                                    // Show loading indication
+                                    submitButton.setAttribute('data-kt-indicator', 'on');
+                                    submitButton.disabled = true;
+
+                                    // Prepare form data
+                                    const formData = new FormData(form);
+
+                                    // Add CSRF token for Laravel
+                                    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+                                    formData.append('_method', 'PUT'); // For Laravel resource route
+
+                                    // Submit via AJAX
+                                    fetch(`/admin/users/${userId}`, {
+                                          method: 'POST', // Laravel expects POST for PUT routes
+                                          body: formData,
+                                          headers: {
+                                                'Accept': 'application/json',
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                          }
+                                    })
+                                          .then(response => {
+                                                if (!response.ok) throw new Error('Network response was not ok');
+                                                return response.json();
+                                          })
+                                          .then(data => {
+                                                submitButton.removeAttribute('data-kt-indicator');
+                                                submitButton.disabled = false;
+
+                                                if (data.success) {
+                                                      toastr.success(data.message || 'User updated successfully');
+                                                      modal.hide();
+
+                                                      // Reload the page
+                                                      window.location.reload();
+                                                } else {
+                                                      throw new Error(data.message || 'Update failed');
+                                                }
+                                          })
+                                          .catch(error => {
+                                                submitButton.removeAttribute('data-kt-indicator');
+                                                submitButton.disabled = false;
+                                                toastr.error(error.message || 'Failed to update user');
+                                                console.error('Error:', error);
+                                          });
+                              } else {
+                                    toastr.warning('Please fill all required fields correctly');
+                              }
+                        });
+                  });
+            }
+      }
+
+      return {
+            init: function () {
+                  iniEditUser();
+                  initValidation();
+            }
+      };
+}();
+
+var KTAddUser = function () {
+      // Shared variables
+      const element = document.getElementById('kt_modal_add_user');
+
+      // Early return if element doesn't exist
+      if (!element) {
+            console.error('Modal element not found');
+            return {
+                  init: function () { }
+            };
+      }
+
+      const form = element.querySelector('#kt_modal_add_user_form');
+      const modal = bootstrap.Modal.getOrCreateInstance(element);
+
+      // Init edit institution modal
+      var initAddUser = () => {
+            // Cancel button handler
+            const cancelButton = element.querySelector('[data-kt-add-users-modal-action="cancel"]');
+            if (cancelButton) {
+                  cancelButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        if (form) form.reset();
+                        modal.hide();
+                  });
+            }
+
+            // Close button handler
+            const closeButton = element.querySelector('[data-kt-add-users-modal-action="close"]');
+            if (closeButton) {
+                  closeButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        if (form) form.reset();
+                        modal.hide();
+                  });
+            }
+      }
+
+      // Form validation
+      var initValidation = function () {
+            if (!form) return;
+
+            var validator = FormValidation.formValidation(
+                  form,
+                  {
+                        fields: {
+                              'user_name_add': {
+                                    validators: {
+                                          notEmpty: {
+                                                message: 'নাম উল্লেখ প্রয়োজন'
+                                          }
+                                    }
+                              },
+                              'email_add': {
+                                    validators: {
+                                          notEmpty: {
+                                                message: 'লগিন করার জন্য ইউজারের ইমেইল প্রয়োজন'
+                                          },
+                                          emailAddress: {
+                                                message: 'অনুগ্রহ করে সঠিক ইমেইল দিন',
+                                          },
+                                    }
+                              },
+                        },
+                        plugins: {
+                              trigger: new FormValidation.plugins.Trigger(),
+                              bootstrap: new FormValidation.plugins.Bootstrap5({
+                                    rowSelector: '.fv-row',
+                                    eleInvalidClass: '',
+                                    eleValidClass: ''
+                              })
+                        }
+                  }
+            );
+
+            const submitButton = element.querySelector('[data-kt-add-users-modal-action="submit"]');
+            if (submitButton && validator) {
+                  submitButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        validator.validate().then(function (status) {
+                              if (status == 'Valid') {
+                                    // Show loading indication
+                                    submitButton.setAttribute('data-kt-indicator', 'on');
+                                    submitButton.disabled = true;
+
+                                    // Prepare form data
+                                    const formData = new FormData(form);
+
+                                    // Add CSRF token for Laravel
+                                    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
+                                    // Submit via AJAX
+                                    fetch(`/admin/users`, {
+                                          method: 'POST', // Laravel expects POST for PUT routes
+                                          body: formData,
+                                          headers: {
+                                                'Accept': 'application/json',
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                          }
+                                    })
+                                          .then(response => {
+                                                if (!response.ok) {
+                                                      return response.json().then(errorData => {
+                                                            // Show error from Laravel if available
+                                                            throw new Error(errorData.message || 'Network response was not ok');
+                                                      });
+                                                }
+                                                return response.json();
+                                          })
+                                          .then(data => {
+                                                submitButton.removeAttribute('data-kt-indicator');
+                                                submitButton.disabled = false;
+
+                                                if (data.success) {
+                                                      toastr.success(data.message || 'User added successfully');
+                                                      modal.hide();
+
+                                                      // Reload the page
+                                                      window.location.reload();
+                                                } else {
+                                                      throw new Error(data.message || 'Update failed');
+                                                }
+                                          })
+                                          .catch(error => {
+                                                submitButton.removeAttribute('data-kt-indicator');
+                                                submitButton.disabled = false;
+                                                toastr.error(error.message || 'Failed to update User');
+                                                console.error('Error:', error);
+                                          });
+                              } else {
+                                    toastr.warning('Please fill all required fields correctly');
+                              }
+                        });
+                  });
+            }
+      }
+
+      return {
+            init: function () {
+                  initAddUser();
+                  initValidation();
+            }
+      };
+}();
+
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
       KTUsersList.init();
       KTUsersEditPassword.init();
+      KTAddUser.init();
+      KTEditUser.init();
 });

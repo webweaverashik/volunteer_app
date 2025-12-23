@@ -31,11 +31,8 @@
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
                 <!--begin::Search-->
-                <div class="app-navbar-item ms-1 ms-md-4">
-                    <span class="badge badge-lg badge-info fs-5">
-                        {{ ucfirst(auth()->user()->role) }}
-                    </span>
-
+                <div class="app-navbar-item ms-1 ms-md-4 fs-3">
+                        স্বাগতম, {{ auth()->user()->name }}
                 </div>
                 <!--end::Search-->
 

@@ -22,7 +22,6 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
-        'role',
     ];
 
     /**
@@ -46,5 +45,11 @@ class User extends Authenticatable
             'is_active' => 'boolean',
             'password'  => 'hashed',
         ];
+    }
+
+    /** User → Login Activities */
+    public function loginActivities()
+    {
+        return $this->hasMany(LoginActivity::class);
     }
 }

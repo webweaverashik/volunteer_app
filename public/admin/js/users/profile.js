@@ -52,26 +52,6 @@ var KEditUserForm = function () {
                   showError('email', 'বৈধ ইমেইল ঠিকানা দিন।');
                   isValid = false;
             }
-
-            // Mobile - Must be 11 digits, Bangladeshi format (01xxxxxxxxx)
-            var mobileInput = form.querySelector('[name="mobile_no"]');
-            var mobile = mobileInput.value.trim();
-            if (!mobile) {
-                  showError('mobile_no', 'মোবাইল নম্বর আবশ্যক।');
-                  isValid = false;
-            } else if (!/^01[3-9]\d{8}$/.test(mobile)) {
-                  showError('mobile_no', 'বৈধ ১১ ডিজিটের বাংলাদেশী মোবাইল নম্বর দিন (যেমন: 017XXXXXXX)');
-                  isValid = false;
-            }
-
-            // BP Number - optional, but must be numeric if provided
-            var bpInput = form.querySelector('[name="bp_number"]');
-            var bp = bpInput.value.trim();
-            if (bp && isNaN(bp)) {
-                  showError('bp_number', 'বিপি নাম্বার শুধুমাত্র সংখ্যা হতে হবে।');
-                  isValid = false;
-            }
-
             return isValid;
       };
 
